@@ -76,4 +76,42 @@ async (req, res) => {
     }
 });
 
+//GET all profiles
+router.get('/', async (req, res) => {
+    try {
+        const profiles = await Profile.find().populate('user', ['name', 'avatar']);
+        res.json(profiles);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+});
+
+//GET a profile by the user_id
+router.get('/user/:user_id', async (req, res) => {
+    try {
+        const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'avatar']);
+
+        if(!profile) return res.status(400).json({ msg: 'There is no profile for this id' });
+        res.json(profile);
+    } catch (err) {
+        console.error(err.message);
+        if(err.kind == 'ObjectID'){
+            return res.status(400).json({ msg: 'There is no profile for this id' });
+        }
+        res.status(500).send('Server error');
+    }
+});
+
+//DELETE a profile, user and posts
+router.delete('/', auth, async (req, res) => {
+    try {
+        await Profile.findOneAndRemove({ user: req.user.id });
+        await User.findOneAndRemove({ _id: req.user.id });
+        res.json({ msg: 'User deleted' });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+});
 module.exports = router;
