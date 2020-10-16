@@ -1,5 +1,6 @@
 {
   "name": "devconnection",
+  "author": "Jamylle Magalhães",
   "version": "1.0.0",
   "description": "Social network for developers",
   "main": "server.js",
@@ -11,7 +12,6 @@
     "type": "git",
     "url": "git+https://github.com/TheJamylle/devconnection.git"
   },
-  "author": "Jamylle Magalhães",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0",
