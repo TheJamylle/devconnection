@@ -1,6 +1,6 @@
 {
-  "name": "devconnection",
   "author": "Jamylle Magalhães",
+  "name": "devconnection",
   "version": "1.0.0",
   "description": "Social network for developers",
   "main": "server.js",
